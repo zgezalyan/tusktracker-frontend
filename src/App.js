@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Logo from './Logo';
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
+import TaskList from './TaskList';
+import TaskForm from './TaskForm';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [isAuthorized, setIsAuthorized] = useState(false);
+
+    const handleLogin = () => {
+        // Perform login logic here
+        setIsAuthorized(true);
+    };
+
+    const handleSignup = () => {
+        // Perform signup logic here
+        setIsAuthorized(true);
+    };
+
+    const handleLogout = () => {
+        // Perform logout logic here
+        setIsAuthorized(false);
+    };
+
+    return (
+        <div>
+            <Logo />
+
+            {isAuthorized ? (
+                <>
+                    <TaskList />
+                    <TaskForm />
+                    <button onClick={handleLogout}>Logout</button>
+                </>
+            ) : (
+                <>
+                    <LoginForm onLogin={handleLogin} />
+                    <SignupForm onSignup={handleSignup} />
+                </>
+            )}
+        </div>
+    );
 }
 
 export default App;
